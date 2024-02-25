@@ -1,0 +1,3 @@
+0 Khong doi non
+1 Doi non
+2 Khong co nguoi

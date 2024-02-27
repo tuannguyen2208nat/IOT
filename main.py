@@ -3,10 +3,11 @@ from Adafruit_IO import MQTTClient
 import time
 import random
 from simple_ai import *
+from uart import *
 
 AIO_FEED_IDs = ["nutnhan1", "nutnhan2"]
 AIO_USERNAME = "tuannguyen2208nat"
-AIO_KEY = "aio_CElR63Sdfn4DwJ0iGli31HpL7Xq3"
+AIO_KEY = "aio_vUQG09Ijs2YgpXr5PhYZWQvjJbni"
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -34,17 +35,17 @@ client.loop_background()
 counter = 10
 counter_ai=5
 while True:
-    counter -= 1
-    if counter <= 0:
-        counter = 10
-        # TO DO
-        print("Random data is publishing...")
-        temp = random.randint(10, 20)
-        client.publish("cambien1", temp)
-        humi = random.randint(50, 70)
-        client.publish("cambien2", humi)
-        light = random.randint(100, 500)
-        client.publish("cambien3", light)
+    # counter -= 1
+    # if counter <= 0:
+    #     counter = 10
+    #     # TO DO
+    #     print("Random data is publishing...")
+    #     temp = random.randint(10, 20)
+    #     client.publish("cambien1", temp)
+    #     humi = random.randint(50, 70)
+    #     client.publish("cambien2", humi)
+    #     light = random.randint(100, 500)
+    #     client.publish("cambien3", light)
 
     counter_ai=counter_ai-1
     if counter_ai <=0:
@@ -52,4 +53,6 @@ while True:
         ai_result = image_detector()
         print("AI Output: ",ai_result)
         client.publish("ai",ai_result)
+
+    readSerial(client)
     time.sleep(1)
